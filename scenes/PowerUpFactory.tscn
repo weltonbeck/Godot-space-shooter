@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/PowerUpCannonFast.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/PowerUpCannonDouble.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/PowerUpFactory.gd" type="Script" id=3]
+
+[node name="PowerUpFactory" type="Node"]
+script = ExtResource( 3 )
+
+[node name="PowerUpCannonDouble" parent="." instance=ExtResource( 2 )]
+position = Vector2( 45.6984, 37.4577 )
+
+[node name="PowerUpCannonFast" parent="." instance=ExtResource( 1 )]
+position = Vector2( 368.584, 53.1899 )

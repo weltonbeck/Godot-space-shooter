@@ -1,0 +1,728 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://scenes/Nave.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/MeteorSpawner.tscn" type="PackedScene" id=2]
+[ext_resource path="res://sprites/Effects/star1.png" type="Texture" id=3]
+[ext_resource path="res://scripts/camera2D.gd" type="Script" id=4]
+[ext_resource path="res://scenes/PowerUpSpawner.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/PowerUpCannonFast.tscn" type="PackedScene" id=6]
+[ext_resource path="res://fonts/font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://scripts/scoreLabel.gd" type="Script" id=8]
+[ext_resource path="res://scripts/hudLives.gd" type="Script" id=9]
+[ext_resource path="res://sprites/UI/playerLife2_blue.png" type="Texture" id=10]
+[ext_resource path="res://scripts/pauser.gd" type="Script" id=11]
+[ext_resource path="res://sprites/pixelwhite.png" type="Texture" id=12]
+[ext_resource path="res://shader/ShaderBlackWhite.tres" type="Material" id=13]
+[ext_resource path="res://fonts/Kenney Mini.ttf" type="DynamicFontData" id=14]
+[ext_resource path="res://scenes/EnemySpawner.tscn" type="PackedScene" id=15]
+[ext_resource path="res://sprites/Input/shadedLight/shadedLight05.png" type="Texture" id=16]
+[ext_resource path="res://sprites/Input/flatLight/flatLight03.png" type="Texture" id=17]
+[ext_resource path="res://sprites/Input/shadedLight/shadedLight06.png" type="Texture" id=18]
+[ext_resource path="res://sprites/Input/flatLight/flatLight04.png" type="Texture" id=19]
+[ext_resource path="res://sprites/Input/flatLight/flatLight47.png" type="Texture" id=20]
+[ext_resource path="res://sprites/Input/shadedLight/shadedLight49.png" type="Texture" id=21]
+[ext_resource path="res://sprites/Input/flatLight/flatLight08.png" type="Texture" id=22]
+[ext_resource path="res://sprites/Input/shadedLight/shadedLight10.png" type="Texture" id=23]
+[ext_resource path="res://sprites/Input/flatLight/flatLight01.png" type="Texture" id=24]
+[ext_resource path="res://sprites/Input/shadedLight/shadedLight03.png" type="Texture" id=25]
+[ext_resource path="res://scripts/gameover.gd" type="Script" id=26]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+font_data = ExtResource( 14 )
+
+[node name="Main" type="CanvasLayer"]
+
+[node name="Hud" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="scoreLabel" type="Label" parent="Hud"]
+margin_left = 333.0
+margin_top = 10.0
+margin_right = 634.0
+margin_bottom = 48.0
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Score: 0000000000"
+align = 2
+valign = 1
+uppercase = true
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hudLives" type="Node2D" parent="Hud"]
+position = Vector2( 10, 10 )
+script = ExtResource( 9 )
+texture = ExtResource( 10 )
+
+[node name="pauser" type="CanvasLayer" parent="Hud"]
+pause_mode = 2
+layer = 11
+script = ExtResource( 11 )
+
+[node name="textureBlackWhite" type="TextureRect" parent="Hud/pauser"]
+visible = false
+material = ExtResource( 13 )
+margin_right = 640.0
+margin_bottom = 480.0
+texture = ExtResource( 12 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="pausedLabel" type="Label" parent="Hud/pauser"]
+visible = false
+margin_right = 640.0
+margin_bottom = 480.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.0196078, 0.658824, 0.941176, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Pause"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gameover" type="CanvasLayer" parent="Hud"]
+pause_mode = 2
+layer = 11
+script = ExtResource( 26 )
+
+[node name="textureBlackWhite" type="TextureRect" parent="Hud/gameover"]
+visible = false
+material = ExtResource( 13 )
+margin_right = 640.0
+margin_bottom = 480.0
+texture = ExtResource( 12 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="label" type="Label" parent="Hud/gameover"]
+visible = false
+margin_right = 640.0
+margin_bottom = 480.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.0196078, 0.658824, 0.941176, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Game Over"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn" type="Node2D" parent="Hud"]
+position = Vector2( 90.4819, 374.627 )
+
+[node name="btnLeft" type="TouchScreenButton" parent="Hud/btn"]
+position = Vector2( -78.0881, -26.0294 )
+normal = ExtResource( 16 )
+pressed = ExtResource( 17 )
+action = "ui_left"
+visibility_mode = 1
+
+[node name="btnRight" type="TouchScreenButton" parent="Hud/btn"]
+position = Vector2( 2.95934, -25.6945 )
+normal = ExtResource( 18 )
+pressed = ExtResource( 19 )
+action = "ui_right"
+visibility_mode = 1
+
+[node name="btndown" type="TouchScreenButton" parent="Hud/btn"]
+position = Vector2( -30.7013, 7.29642 )
+normal = ExtResource( 23 )
+pressed = ExtResource( 22 )
+action = "ui_down"
+visibility_mode = 1
+
+[node name="btnUp" type="TouchScreenButton" parent="Hud/btn"]
+position = Vector2( -30.0339, -73.371 )
+normal = ExtResource( 25 )
+pressed = ExtResource( 24 )
+action = "ui_up"
+visibility_mode = 1
+
+[node name="btnFire" type="TouchScreenButton" parent="Hud/btn"]
+position = Vector2( 454.419, 12.1855 )
+normal = ExtResource( 21 )
+pressed = ExtResource( 20 )
+action = "ui_shoot"
+visibility_mode = 1
+
+[node name="camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+script = ExtResource( 4 )
+
+[node name="Nave" parent="camera2D" instance=ExtResource( 1 )]
+position = Vector2( 318.091, 404.587 )
+
+[node name="MeteorSpawner" parent="camera2D" instance=ExtResource( 2 )]
+
+[node name="EnemySpawner" parent="camera2D" instance=ExtResource( 15 )]
+
+[node name="PowerUpSpawner" parent="camera2D" instance=ExtResource( 5 )]
+
+[node name="PowerUpCannonFast" parent="camera2D" instance=ExtResource( 6 )]
+position = Vector2( 520.477, 258.105 )
+
+[node name="parallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="starsLayer" type="ParallaxLayer" parent="parallaxBackground"]
+motion_mirroring = Vector2( 0, 480 )
+
+[node name="starSprite" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 36.9829, 52.9426 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite2" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 89.09, 199.631 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite3" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 176.986, 65.1542 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite4" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 146.514, 164.061 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite5" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 110.406, 374.958 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite6" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 281.754, 257.23 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite7" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 444.945, 59.2922 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite8" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 471.654, 169.47 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite9" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 588.123, 122.301 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite10" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 346.526, 16.4324 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite11" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 571.66, 423.454 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite18" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 195.701, 339.71 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite13" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 432.246, 260.892 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite14" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 438.318, 390.119 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite15" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 548.438, 292.152 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite16" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 25.4902, 355.878 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite17" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 343.074, 169.47 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starSprite12" type="Sprite" parent="parallaxBackground/starsLayer"]
+position = Vector2( 557.962, 44.518 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="starsBackLayer" type="ParallaxLayer" parent="parallaxBackground"]
+motion_scale = Vector2( 0.33, 0.33 )
+motion_mirroring = Vector2( 0, 480 )
+
+[node name="starBackSprite" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 57.3957, 19.148 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite2" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 82.8669, 86.5718 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite3" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 25.9312, 109.796 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite4" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 159.281, 133.019 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite5" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 135.308, 64.0972 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite9" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 204.23, 141.26 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite10" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 280.643, 187.708 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite11" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 256.671, 118.785 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite12" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 33.4228, 190.704 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite13" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 109.836, 237.152 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite14" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 85.8635, 168.23 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite15" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 231.947, 64.2355 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite16" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 426.403, 116.919 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite17" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 284.388, 41.7609 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite6" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 205.728, 3.41573 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite7" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 350.315, 137.514 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite8" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 343.572, 82.826 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite40" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 200.892, 448.281 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite41" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 176.919, 379.359 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite42" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 245.842, 456.522 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite43" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 298.282, 434.047 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite44" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 237.032, 408.897 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite45" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 349.972, 425.945 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite46" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 325.999, 357.023 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite47" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 391.926, 452.776 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite48" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 385.184, 398.088 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite18" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 92.6668, 279.006 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite19" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 35.7311, 302.23 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite20" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 169.08, 325.453 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite21" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 145.108, 256.531 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite22" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 214.03, 333.694 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite23" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 290.443, 380.142 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite24" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 266.47, 311.219 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite25" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 43.2227, 383.138 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite26" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 119.636, 429.586 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite27" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 95.6634, 360.664 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite28" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 241.747, 256.67 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite29" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 318.16, 303.117 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite30" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 294.188, 234.195 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite31" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 360.115, 329.948 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite32" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 353.372, 275.26 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite33" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 214.03, 333.694 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite49" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 445.244, 186.858 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite50" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 200.651, 195.099 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite51" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 200.651, 195.099 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite34" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 266.47, 311.219 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite35" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 241.747, 256.67 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite36" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 318.16, 303.117 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite37" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 294.188, 234.195 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite52" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 482.475, 42.606 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite53" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 527.424, 50.8467 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite54" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 603.838, 97.2942 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite55" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 579.865, 28.3721 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite56" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 468.302, 166.118 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite57" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 564.941, 166.256 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite58" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 617.382, 143.782 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite59" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 523.845, 104.686 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite60" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 523.845, 104.686 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite61" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 564.941, 166.256 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite62" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 617.382, 143.782 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite63" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 414.686, 220.386 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite64" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 459.635, 228.626 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite65" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 536.049, 275.074 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite66" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 512.076, 206.152 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite67" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 400.513, 343.898 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite68" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 497.152, 344.036 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite69" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 608.809, 223.288 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite70" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 456.056, 282.465 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite71" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 456.056, 282.465 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite72" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 497.152, 344.036 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite73" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 608.809, 223.288 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite74" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 474.198, 326.335 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite75" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 578.364, 236.302 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite76" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 595.561, 381.023 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite77" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 571.588, 312.101 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite78" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 460.025, 449.847 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite79" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 556.665, 449.986 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite80" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 609.105, 427.511 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite81" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 515.568, 388.415 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite82" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 515.568, 388.415 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite83" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 556.665, 449.986 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite84" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 609.105, 427.511 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite38" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 360.115, 329.948 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="starBackSprite39" type="Sprite" parent="parallaxBackground/starsBackLayer"]
+position = Vector2( 353.372, 275.26 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
